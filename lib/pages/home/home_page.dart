@@ -1,7 +1,24 @@
 import 'package:assignment4_local_search_app/pages/home/views/local_info_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  TextEditingController textEditingController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  void onSearch(String text) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,6 +28,8 @@ class HomePage extends StatelessWidget {
           style: TextStyle(fontSize: 12),
           maxLines: 1,
           textInputAction: TextInputAction.search,
+          controller: textEditingController,
+          onSubmitted: onSearch,
           decoration: InputDecoration(
               hintText: '지역명을 입력해 주세요',
               hintStyle: TextStyle(color: Colors.grey),

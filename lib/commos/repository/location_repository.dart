@@ -3,7 +3,7 @@ import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:http/http.dart';
 
 class LocationRepository {
-  Future<List<Local>> searchLocal(String query) async {
+  Future<List<Location>> searchLocation(String query) async {
     final client = Client();
     final response = await client.get(
         Uri.parse(
@@ -15,9 +15,9 @@ class LocationRepository {
         });
     if (response.statusCode == 200) {
       Map<String, dynamic> map = jsonDecode(response.body);
-      final locals = List.from(map['items']);
-      final iterable = locals.map((e) {
-        return Local.fromJson(e);
+      final locations = List.from(map['items']);
+      final iterable = locations.map((e) {
+        return Location.fromJson(e);
       });
       final localList = iterable.toList();
       return localList;
