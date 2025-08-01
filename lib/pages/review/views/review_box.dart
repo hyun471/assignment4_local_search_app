@@ -1,8 +1,9 @@
+import 'package:assignment4_local_search_app/commos/models/review.dart';
 import 'package:flutter/material.dart';
 
 class ReviewBox extends StatelessWidget {
-  int count;
-  ReviewBox(this.count);
+  Review review;
+  ReviewBox({required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +21,14 @@ class ReviewBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '사람이 너무 많아요$count',
+            review.content,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '2025-07-14 23:31:14.485909',
+            review.date.toIso8601String(),
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey,

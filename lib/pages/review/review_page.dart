@@ -1,4 +1,5 @@
 import 'package:assignment4_local_search_app/commos/models/local.dart';
+import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view_model.dart';
 import 'package:assignment4_local_search_app/pages/review/views/review_box.dart';
 import 'package:assignment4_local_search_app/pages/review/views/write_review_box.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +14,16 @@ class ReviewPage extends ConsumerStatefulWidget {
 }
 
 class _ReviewPageState extends ConsumerState<ReviewPage> {
-  TextEditingController textEditingController =
-      TextEditingController();
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
+  void creatReview(String text) {
+    ref
+        .read(reviewViewModelProvider(widget.local).notifier)
+        .createReview(reviewContent: text, local: widget.local);
   }
 
   @override
   Widget build(BuildContext context) {
+    final reviewState =
+        ref.watch(reviewViewModelProvider(widget.local));
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -41,18 +41,19 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
             SizedBox(height: 20),
             Expanded(
               child: ListView.separated(
-                itemCount: 3,
+                itemCount: reviewState.reviews.length,
                 itemBuilder: (context, index) {
-                  List<int> count = [1, 2, 3, 4, 5];
-                  int countIndex = count[index];
-                  return ReviewBox(countIndex);
+                  final review = reviewState.reviews[index];
+                  return ReviewBox(review: review);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: 20);
                 },
               ),
             ),
-            WriteReviewBox()
+            WriteReviewBox(
+              local: widget.local,
+            )
           ],
         ),
       ),

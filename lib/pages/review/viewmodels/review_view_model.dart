@@ -3,17 +3,21 @@ import 'package:assignment4_local_search_app/commos/models/review.dart';
 import 'package:assignment4_local_search_app/commos/repository/review_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
+class ReviewState {
+  List<Review> reviews;
+  ReviewState(this.reviews);
+}
+
 // 뷰모델
 class ReviewViewModel
-    extends AutoDisposeFamilyNotifier<List<Review>, Local> {
+    extends AutoDisposeFamilyNotifier<ReviewState, Local> {
   @override
-  List<Review> build(local) {
-    getAllReviews(local: local);
-    return [];
+  ReviewState build(local) {
+    return ReviewState([]);
   }
 
   // 리뷰 추가
-  void createReview({
+  Future<void> createReview({
     required String reviewContent,
     required Local local,
   }) async {
@@ -34,7 +38,7 @@ class ReviewViewModel
       mapY: local.mapY,
     );
     final streamSubscription = reviews.listen((event) {
-      state = event;
+      state = ReviewState(event);
     });
 
     ref.onDispose(() {
@@ -42,3 +46,11 @@ class ReviewViewModel
     });
   }
 }
+
+// 뷰모델 관리자
+final reviewViewModelProvider = NotifierProvider.autoDispose
+    .family<ReviewViewModel, ReviewState, Local>(
+  () {
+    return ReviewViewModel();
+  },
+);

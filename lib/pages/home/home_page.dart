@@ -55,8 +55,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: ListView.separated(
                 itemCount: localState.locals.length,
                 itemBuilder: (context, index) {
-                  final location = localState.locals[index];
-                  return LocalInfoBox(local: location);
+                  final local = localState.locals[index];
+                  return LocalInfoBox(local: local);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(

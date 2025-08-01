@@ -1,9 +1,11 @@
+import 'package:assignment4_local_search_app/commos/models/local.dart';
+import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WriteReviewBox extends StatelessWidget {
-  const WriteReviewBox({
-    super.key,
-  });
+  Local local;
+  WriteReviewBox({required this.local});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +17,24 @@ class WriteReviewBox extends StatelessWidget {
           color: Color(0xffF8F2FB),
           borderRadius:
               BorderRadius.vertical(top: Radius.circular(20))),
-      child: TextField(
-        maxLines: 1,
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          hintText: '리뷰를 작성해 주세요',
-          hintStyle: TextStyle(color: Colors.grey),
-        ),
+      child: Consumer(
+        builder: (context, ref, child) {
+          final create =
+              ref.read(reviewViewModelProvider(local).notifier);
+
+          return TextField(
+            maxLines: 1,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (text) async {
+              await create.createReview(
+                  reviewContent: text, local: local);
+            },
+            decoration: InputDecoration(
+              hintText: '리뷰를 작성해 주세요',
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+          );
+        },
       ),
     );
   }
