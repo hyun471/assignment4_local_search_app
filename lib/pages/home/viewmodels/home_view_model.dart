@@ -1,10 +1,10 @@
 import 'package:assignment4_local_search_app/commos/models/local.dart';
-import 'package:assignment4_local_search_app/commos/repository/location_repository.dart';
+import 'package:assignment4_local_search_app/commos/repository/local_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
 class HomeState {
-  List<Location> local;
-  HomeState(this.local);
+  List<Local> locals;
+  HomeState(this.locals);
 }
 
 class HomeViewModel extends Notifier<HomeState> {

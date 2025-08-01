@@ -11,18 +11,18 @@
 //     "mapy": "375120649"
 //   },
 
-class Location {
+class Local {
   String title;
   String category;
   String address;
 
-  Location({
+  Local({
     required this.title,
     required this.category,
     required this.address,
   });
 
-  Location.fromJson(Map<String, dynamic> map)
+  Local.fromJson(Map<String, dynamic> map)
       : this(
           title: map['title'],
           category: map['category'],

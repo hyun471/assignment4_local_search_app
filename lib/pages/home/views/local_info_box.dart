@@ -1,9 +1,10 @@
+import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/pages/review/review_page.dart';
 import 'package:flutter/material.dart';
 
 class LocalInfoBox extends StatelessWidget {
-  int index;
-  LocalInfoBox({required this.index});
+  Local local;
+  LocalInfoBox({required this.local});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class LocalInfoBox extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return ReviewPage();
+            return ReviewPage(local: local);
           },
         ));
       },
@@ -32,20 +33,20 @@ class LocalInfoBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '삼성$index동 주민센터',
+                local.title,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '공공,사회기관>행정복지센터',
+                local.category,
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
               Text(
-                '서울특별시 강남구 봉은사로 616 삼성1동 주민센터',
+                local.address,
                 style: TextStyle(
                   fontSize: 14,
                 ),

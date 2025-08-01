@@ -1,3 +1,4 @@
+import 'package:assignment4_local_search_app/pages/home/viewmodels/home_view_model.dart';
 import 'package:assignment4_local_search_app/pages/home/views/local_info_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,10 +18,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.dispose();
   }
 
-  void onSearch(String text) {}
+  void onSearch(String text) {
+    ref.read(homeViewModelProvider.notifier).searchLocal(text);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final locationState = ref.watch(homeViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -47,11 +51,10 @@ class _HomePageState extends ConsumerState<HomePage> {
           children: [
             Expanded(
               child: ListView.separated(
-                itemCount: 5,
+                itemCount: locationState.locals.length,
                 itemBuilder: (context, index) {
-                  List<int> count = [1, 2, 3, 4, 5];
-                  int countIndex = count[index];
-                  return LocalInfoBox(index: countIndex);
+                  final location = locationState.locals[index];
+                  return LocalInfoBox(local: location);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(

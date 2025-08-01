@@ -1,8 +1,11 @@
+import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/pages/review/views/review_box.dart';
 import 'package:assignment4_local_search_app/pages/review/views/write_review_box.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPage extends StatelessWidget {
+  Local local;
+  ReviewPage({required this.local});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +13,7 @@ class ReviewPage extends StatelessWidget {
         toolbarHeight: 80,
         centerTitle: true,
         title: Text(
-          '삼성1동 주민센터',
+          local.title,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
