@@ -19,12 +19,14 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   void onSearch(String text) {
-    ref.read(homeViewModelProvider.notifier).searchLocal(text);
+    ref
+        .read(homeViewModelProvider.notifier)
+        .searchLocation(text);
   }
 
   @override
   Widget build(BuildContext context) {
-    final locationState = ref.watch(homeViewModelProvider);
+    final localState = ref.watch(homeViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -51,9 +53,9 @@ class _HomePageState extends ConsumerState<HomePage> {
           children: [
             Expanded(
               child: ListView.separated(
-                itemCount: locationState.locals.length,
+                itemCount: localState.locals.length,
                 itemBuilder: (context, index) {
-                  final location = locationState.locals[index];
+                  final location = localState.locals[index];
                   return LocalInfoBox(local: location);
                 },
                 separatorBuilder: (context, index) {

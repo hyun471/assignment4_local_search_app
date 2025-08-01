@@ -15,19 +15,23 @@ class Local {
   String title;
   String category;
   String address;
+  String mapX;
+  String mapY;
 
-  Local({
-    required this.title,
-    required this.category,
-    required this.address,
-  });
+  Local(
+      {required this.title,
+      required this.category,
+      required this.address,
+      required this.mapX,
+      required this.mapY});
 
   Local.fromJson(Map<String, dynamic> map)
       : this(
-          title: map['title'],
-          category: map['category'],
-          address: map['address'],
-        );
+            title: map['title'],
+            category: map['category'],
+            address: map['address'],
+            mapX: map['mapx'],
+            mapY: map['mapy']);
 
   Map<String, dynamic> toJson() {
     return {

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:http/http.dart';
 
+// dio 패키지로 변경 고려
 class LocationRepository {
   Future<List<Local>> searchLocation(String query) async {
     final client = Client();
@@ -15,8 +16,8 @@ class LocationRepository {
         });
     if (response.statusCode == 200) {
       Map<String, dynamic> map = jsonDecode(response.body);
-      final locations = List.from(map['items']);
-      final iterable = locations.map((e) {
+      final locals = List.from(map['items']);
+      final iterable = locals.map((e) {
         return Local.fromJson(e);
       });
       final localList = iterable.toList();
