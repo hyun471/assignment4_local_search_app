@@ -69,6 +69,8 @@ class ReviewRepository {
         });
       },
     ).toList();
+    final reviews =
+        streamReviews.sort((a, b) => b.date.compareTo(a.date));
     return streamReviews;
   }
 }
