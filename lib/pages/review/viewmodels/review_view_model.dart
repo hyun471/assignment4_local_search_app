@@ -30,20 +30,14 @@ class ReviewViewModel
     );
   }
 
-  // 리뷰 갱신
+  // 리뷰 불러오기
   void getAllReviews({required Local local}) async {
     final reviewRepository = ReviewRepository();
-    final reviews = reviewRepository.reviewStream(
+    final reviews = await reviewRepository.reviewStream(
       mapX: local.mapX,
       mapY: local.mapY,
     );
-    final streamSubscription = reviews.listen((event) {
-      state = ReviewState(event);
-    });
-
-    ref.onDispose(() {
-      streamSubscription.cancel();
-    });
+    state = ReviewState(reviews);
   }
 }
 

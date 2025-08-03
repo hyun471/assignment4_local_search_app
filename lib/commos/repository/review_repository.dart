@@ -46,13 +46,13 @@ class ReviewRepository {
   }
 
   // 좌표를 활용하여 해당 좌표의 모든 리뷰 불러오기
-  Stream<List<Review>> reviewStream({
+  Future<List<Review>> reviewStream({
     required String mapX,
     required String mapY,
-  }) {
+  }) async {
     final firestore = FirebaseFirestore.instance;
     final collectionRef = firestore.collection('reviews');
-    final result = collectionRef
+    final result = await collectionRef
         .where(
           'mapX',
           isEqualTo: mapX,
@@ -62,18 +62,14 @@ class ReviewRepository {
           isEqualTo: mapY,
         )
         .orderBy('date', descending: true)
-        .snapshots();
-    final streamReviews = result.map(
-      (event) {
-        return event.docs.map(
-          (doc) {
-            return Review.fromJson({
-              ...doc.data(),
-            });
-          },
-        ).toList();
+        .get();
+    final streamReviews = result.docs.map(
+      (doc) {
+        return Review.fromJson({
+          ...doc.data(),
+        });
       },
-    );
+    ).toList();
     return streamReviews;
   }
 }
