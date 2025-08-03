@@ -36,7 +36,7 @@ class ReviewRepository {
         'content': content,
         'mapX': mapX,
         'mapY': mapY,
-        'date': DateTime.now().toIso8601String(),
+        'date': DateTime.now(),
       });
       return true;
     } catch (e) {
@@ -61,7 +61,6 @@ class ReviewRepository {
           'mapY',
           isEqualTo: mapY,
         )
-        .orderBy('date', descending: true)
         .get();
     final streamReviews = result.docs.map(
       (doc) {

@@ -13,6 +13,7 @@ class ReviewViewModel
     extends AutoDisposeFamilyNotifier<ReviewState, Local> {
   @override
   ReviewState build(local) {
+    getAllReviews(local: local);
     return ReviewState([]);
   }
 

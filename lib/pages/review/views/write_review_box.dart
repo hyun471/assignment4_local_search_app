@@ -2,6 +2,7 @@ import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 
 class WriteReviewBox extends StatelessWidget {
   Local local;
@@ -19,15 +20,16 @@ class WriteReviewBox extends StatelessWidget {
               BorderRadius.vertical(top: Radius.circular(20))),
       child: Consumer(
         builder: (context, ref, child) {
-          final create =
+          final reviewState =
               ref.read(reviewViewModelProvider(local).notifier);
 
           return TextField(
             maxLines: 1,
             textInputAction: TextInputAction.done,
             onSubmitted: (text) async {
-              await create.createReview(
+              await reviewState.createReview(
                   reviewContent: text, local: local);
+              reviewState.getAllReviews(local: local);
             },
             decoration: InputDecoration(
               hintText: '리뷰를 작성해 주세요',
