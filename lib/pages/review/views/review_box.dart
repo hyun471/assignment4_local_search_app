@@ -8,7 +8,7 @@ class ReviewBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      constraints: BoxConstraints(minHeight: 100),
       width: double.infinity,
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(

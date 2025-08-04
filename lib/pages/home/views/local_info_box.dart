@@ -17,7 +17,7 @@ class LocalInfoBox extends StatelessWidget {
         ));
       },
       child: Container(
-        height: 110,
+        constraints: BoxConstraints(minHeight: 110),
         width: double.infinity,
         decoration: BoxDecoration(
             color: Colors.white,
