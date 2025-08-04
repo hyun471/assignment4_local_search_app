@@ -14,10 +14,14 @@ class ReviewPage extends ConsumerStatefulWidget {
 }
 
 class _ReviewPageState extends ConsumerState<ReviewPage> {
-  void creatReview(String text) {
+  void creatReview(String text, String password) {
     ref
         .read(reviewViewModelProvider(widget.local).notifier)
-        .createReview(reviewContent: text, local: widget.local);
+        .createReview(
+          reviewContent: text,
+          local: widget.local,
+          password: password,
+        );
   }
 
   @override
@@ -44,7 +48,8 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                 itemCount: reviewState.reviews.length,
                 itemBuilder: (context, index) {
                   final review = reviewState.reviews[index];
-                  return ReviewBox(review: review);
+                  return ReviewBox(
+                      review: review, local: widget.local);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: 20);

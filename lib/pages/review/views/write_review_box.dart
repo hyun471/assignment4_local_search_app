@@ -1,6 +1,7 @@
 import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
@@ -10,6 +11,8 @@ class WriteReviewBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textEditingController =
+        TextEditingController();
     return Container(
       height: 100,
       width: double.infinity,
@@ -22,13 +25,60 @@ class WriteReviewBox extends StatelessWidget {
         builder: (context, ref, child) {
           final reviewState =
               ref.read(reviewViewModelProvider(local).notifier);
-
           return TextField(
             maxLines: 1,
+            controller: textEditingController,
             textInputAction: TextInputAction.done,
             onSubmitted: (text) async {
-              await reviewState.createReview(
-                  reviewContent: text, local: local);
+              if (text.isEmpty) {
+                return;
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    final TextEditingController
+                        passwordController =
+                        TextEditingController();
+                    return AlertDialog(
+                      title: Text('비밀번호 설정'),
+                      content: TextField(
+                        maxLines: 1,
+                        maxLength: 4,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          hintText: '숫자 4자리를 입력해 주세요',
+                          hintStyle:
+                              TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              return Navigator.pop(context);
+                            },
+                            child: Text('취소')),
+                        TextButton(
+                            onPressed: () async {
+                              String password =
+                                  passwordController.text;
+                              await reviewState.createReview(
+                                  reviewContent: text,
+                                  local: local,
+                                  password: password);
+                              textEditingController.dispose();
+                              return Navigator.pop(
+                                  context, password);
+                            },
+                            child: Text('완료')),
+                      ],
+                    );
+                  },
+                );
+              }
               reviewState.getAllReviews(local: local);
             },
             decoration: InputDecoration(

@@ -10,7 +10,7 @@ class ReviewRepository {
       final docs = result.docs;
       return docs.map(
         (doc) {
-          return Review.fromJson(doc.data());
+          return Review.fromJson(doc.data(), doc.id);
         },
       ).toList();
     } catch (e) {
@@ -20,12 +20,12 @@ class ReviewRepository {
   }
 
   // 리뷰 작성
-  Future<bool> insert({
-    required String title,
-    required String content,
-    required String mapX,
-    required String mapY,
-  }) async {
+  Future<bool> insert(
+      {required String title,
+      required String content,
+      required String mapX,
+      required String mapY,
+      required String password}) async {
     try {
       final firestore = FirebaseFirestore.instance;
       final collectionRef = firestore.collection('reviews');
@@ -37,6 +37,7 @@ class ReviewRepository {
         'mapX': mapX,
         'mapY': mapY,
         'date': DateTime.now(),
+        'password': password,
       });
       return true;
     } catch (e) {
@@ -64,13 +65,36 @@ class ReviewRepository {
         .get();
     final streamReviews = result.docs.map(
       (doc) {
-        return Review.fromJson({
-          ...doc.data(),
-        });
+        return Review.fromJson(
+          doc.data(),
+          doc.id,
+        );
       },
     ).toList();
     final reviews =
         streamReviews.sort((a, b) => b.date.compareTo(a.date));
     return streamReviews;
+  }
+
+  Future<bool> delete({
+    required String id,
+    required String password,
+  }) async {
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final collectionRef = firestore.collection('reviews');
+      final docSnapshot = await collectionRef.doc(id).get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        if (password == data['password']) {
+          await collectionRef.doc(id).delete();
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }
