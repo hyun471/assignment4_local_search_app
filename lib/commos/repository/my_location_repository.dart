@@ -3,26 +3,25 @@
 // key  8EBB813C-B5A3-386D-828C-69594065C1B4
 
 import 'dart:convert';
-
-import 'package:assignment4_local_search_app/commos/models/location.dart';
 import 'package:http/http.dart';
 
 class MyLocationRepository {
-  Future<Location?> searchMyLocation(
+  Future<String?> searchMyLocation(
       String mapX, String mapY) async {
+    String key = '8EBB813C-B5A3-386D-828C-69594065C1B4';
     final client = Client();
     final response = await client.get(Uri.parse(
-      'https://api.vworld.kr/req/address?service=address&request=getAddress&key=8EBB813C-B5A3-386D-828C-69594065C1B4&point=$mapX,$mapY&version=2.0&format=json&type=ROAD',
+      'https://api.vworld.kr/req/data?request=GetFeature&key=$key&data=LT_C_ADEMD_INFO&geomFilter=POINT($mapX $mapY)',
     ));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      Map<String, dynamic> map = data['response'];
-      final mylocation = List.from(map['result']);
-      final address = mylocation[0]['structure'];
-      final myAddress =
-          '${address['level0']} ${address['level1']} ${address['level2']} ${address['level3']}';
-      return Location(myLocation: myAddress);
+      Map<String, dynamic> map =
+          data['response']['result']['featureCollection'];
+      final features = map['features'][0];
+      final properties = features['properties'];
+      final myAddress = properties['emd_kor_nm'].toString();
+      return myAddress;
     }
     print(response.statusCode);
     return null;

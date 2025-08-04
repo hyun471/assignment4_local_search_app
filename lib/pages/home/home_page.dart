@@ -1,7 +1,9 @@
+import 'package:assignment4_local_search_app/commos/repository/my_location_from_device.dart';
 import 'package:assignment4_local_search_app/pages/home/viewmodels/home_view_model.dart';
 import 'package:assignment4_local_search_app/pages/home/views/local_info_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   @override
@@ -22,6 +24,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref
         .read(homeViewModelProvider.notifier)
         .searchLocation(text);
+  }
+
+  void onSearchMyLocal() {
+    ref
+        .read(homeViewModelProvider.notifier)
+        .onSearchMyCurrentLocation();
   }
 
   @override
@@ -46,7 +54,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         actions: [
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                onSearchMyLocal();
+              },
               child: Container(
                   width: 45,
                   height: 45,
