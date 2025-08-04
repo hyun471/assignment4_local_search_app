@@ -44,6 +44,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                   borderSide:
                       BorderSide(color: Colors.grey, width: 1))),
         ),
+        actions: [
+          GestureDetector(
+              onTap: () {},
+              child: Container(
+                  width: 45,
+                  height: 45,
+                  color: Colors.transparent,
+                  child: Center(child: Icon(Icons.gps_fixed)))),
+          SizedBox(
+            width: 10,
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
