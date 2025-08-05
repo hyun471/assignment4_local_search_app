@@ -2,6 +2,7 @@ import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/pages/review/review_page.dart';
 import 'package:flutter/material.dart';
 
+// 지역명을 나타내는 박스 위젯
 class LocalInfoBox extends StatelessWidget {
   Local local;
   LocalInfoBox({required this.local});

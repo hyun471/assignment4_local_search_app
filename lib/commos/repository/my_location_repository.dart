@@ -1,11 +1,9 @@
-// https://api.vworld.kr/req/search?key=인증키&[검색API 요청파라미터]
-
-// key  8EBB813C-B5A3-386D-828C-69594065C1B4
-
 import 'dart:convert';
 import 'package:http/http.dart';
 
+// 좌표를 통해 vworld API에서 지역명 데이터를 받아오는 클래스
 class MyLocationRepository {
+  /// 좌표를 통해 vworld API에서 지역명 데이터를 받아오는 메서드
   Future<String?> searchMyLocation(
       String mapX, String mapY) async {
     String key = '8EBB813C-B5A3-386D-828C-69594065C1B4';

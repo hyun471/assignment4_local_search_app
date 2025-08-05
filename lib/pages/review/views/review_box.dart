@@ -1,12 +1,11 @@
 import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:assignment4_local_search_app/commos/models/review.dart';
-import 'package:assignment4_local_search_app/pages/home/viewmodels/home_view_model.dart';
 import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 
+// 리뷰를 담는 박스 위젯
 class ReviewBox extends StatelessWidget {
   Review review;
   Local local;
@@ -14,6 +13,7 @@ class ReviewBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 리뷰를 담는 박스 위젯
     return Container(
       constraints: BoxConstraints(minHeight: 100),
       width: double.infinity,
@@ -47,6 +47,7 @@ class ReviewBox extends StatelessWidget {
               ],
             ),
           ),
+          // 삭제 아이콘 위젯
           Positioned(
             top: -6,
             right: -4,
@@ -61,6 +62,7 @@ class ReviewBox extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
+                        // 아이콘 클릭시 나오는 팝업
                         return AlertDialog(
                           title: Text('리뷰를 삭제하시겠습니까?'),
                           content: TextField(

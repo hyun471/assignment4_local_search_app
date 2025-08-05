@@ -1,6 +1,8 @@
 import 'package:geolocator/geolocator.dart';
 
+// 디바이스에서 현재 위치 좌표를 받아오는 클래스
 class MyLocationFromDevice {
+  // 디바이스의 현재 위치 좌표 찾는 메서드
   Future<Position> getCurrentlocation() async {
     // 1. 위치 서비스 켜져 있는지 확인
     final isLocationService =

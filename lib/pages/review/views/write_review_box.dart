@@ -3,8 +3,8 @@ import 'package:assignment4_local_search_app/pages/review/viewmodels/review_view
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 
+// 리뷰 작성하는 박스 위젯
 class WriteReviewBox extends StatelessWidget {
   Local local;
   WriteReviewBox({required this.local});
@@ -25,11 +25,13 @@ class WriteReviewBox extends StatelessWidget {
         builder: (context, ref, child) {
           final reviewState =
               ref.read(reviewViewModelProvider(local).notifier);
+          // 리뷰 작성 위젯
           return TextField(
             maxLines: 1,
             controller: textEditingController,
             textInputAction: TextInputAction.done,
             onSubmitted: (text) async {
+              // 작성 완료 시 나타나는 비밀번호 설정 팝업
               if (text.isEmpty) {
                 return;
               } else {
@@ -79,6 +81,7 @@ class WriteReviewBox extends StatelessWidget {
                   },
                 );
               }
+              // 리뷰 등록 완료 후 리뷰 리빌드
               reviewState.getAllReviews(local: local);
             },
             decoration: InputDecoration(

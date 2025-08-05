@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// 서버에서 받아오는 데이터 모델
 class Review {
   String id;
   String title;

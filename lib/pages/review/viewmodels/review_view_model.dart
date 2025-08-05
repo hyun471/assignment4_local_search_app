@@ -3,6 +3,8 @@ import 'package:assignment4_local_search_app/commos/models/review.dart';
 import 'package:assignment4_local_search_app/commos/repository/review_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
+// 리뷰 페이지의 상태 관리 클래스
+// 상태 클래스
 class ReviewState {
   List<Review> reviews;
   ReviewState(this.reviews);
@@ -19,7 +21,7 @@ class ReviewViewModel
 
   final reviewRepository = ReviewRepository();
 
-  // 리뷰 추가
+  /// 리뷰 추가
   Future<void> createReview({
     required String reviewContent,
     required Local local,
@@ -34,7 +36,7 @@ class ReviewViewModel
     );
   }
 
-  // 리뷰 불러오기
+  /// 리뷰 불러오기
   void getAllReviews({required Local local}) async {
     final reviews = await reviewRepository.reviewStream(
       mapX: local.mapX,
@@ -43,6 +45,7 @@ class ReviewViewModel
     state = ReviewState(reviews);
   }
 
+  // 리뷰 삭제
   Future<bool> deleteReview(
       {required String password, required Review review}) async {
     return await reviewRepository.delete(

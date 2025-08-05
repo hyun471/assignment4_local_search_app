@@ -15,17 +15,21 @@ class _HomePageState extends ConsumerState<HomePage> {
       TextEditingController();
 
   @override
+
+  /// 입력창 닫기
   void dispose() {
     textEditingController.dispose();
     super.dispose();
   }
 
+  /// 지역 검색 메서드
   void onSearch(String text) {
     ref
         .read(homeViewModelProvider.notifier)
         .searchLocation(text);
   }
 
+  /// 현재 내 위치에 대한 지역 검색 메서드
   void onSearchMyLocal() {
     ref
         .read(homeViewModelProvider.notifier)
@@ -53,6 +57,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       BorderSide(color: Colors.grey, width: 1))),
         ),
         actions: [
+          // 내 위치 검색 아이콘
           GestureDetector(
               onTap: () {
                 onSearchMyLocal();

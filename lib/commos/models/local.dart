@@ -11,6 +11,7 @@
 //     "mapy": "375120649"
 //   },
 
+// 네이버 API에서 받아오는 데이터 모델
 class Local {
   String title;
   String category;

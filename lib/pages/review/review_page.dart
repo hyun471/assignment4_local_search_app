@@ -5,6 +5,7 @@ import 'package:assignment4_local_search_app/pages/review/views/write_review_box
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// 리뷰 작성 페이지
 class ReviewPage extends ConsumerStatefulWidget {
   Local local;
   ReviewPage({required this.local});
@@ -14,6 +15,7 @@ class ReviewPage extends ConsumerStatefulWidget {
 }
 
 class _ReviewPageState extends ConsumerState<ReviewPage> {
+  // 리뷰 작성
   void creatReview(String text, String password) {
     ref
         .read(reviewViewModelProvider(widget.local).notifier)

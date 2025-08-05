@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:assignment4_local_search_app/commos/models/local.dart';
 import 'package:http/http.dart';
 
-// dio 패키지로 변경 고려
+// 검색어를 통해 네이버 API에서 데이터 받아오고 가공하는 클래스
 class LocationRepository {
+  /// 문자를 받아 검색하여 해당 데이터들을 받아오는 메서드
   Future<List<Local>> searchLocation(String query) async {
     final client = Client();
     final response = await client.get(
