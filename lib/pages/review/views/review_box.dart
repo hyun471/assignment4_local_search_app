@@ -101,6 +101,8 @@ class ReviewBox extends StatelessWidget {
                                         actions: [
                                           TextButton(
                                               onPressed: () {
+                                                textEditingController
+                                                    .clear();
                                                 Navigator.pop(
                                                     context);
                                               },
